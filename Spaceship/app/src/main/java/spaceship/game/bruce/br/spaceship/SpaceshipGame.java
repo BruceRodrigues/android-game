@@ -5,12 +5,14 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.WindowManager;
 
 import spaceship.game.bruce.br.spaceship.spaceship.game.bruce.br.spaceship.loop.GameLoop;
 
 
-public class SpaceshipGame extends ActionBarActivity {
+public class SpaceshipGame extends ActionBarActivity implements View.OnTouchListener {
 
     private GameLoop view;
 
@@ -22,6 +24,8 @@ public class SpaceshipGame extends ActionBarActivity {
 
         this.view = new GameLoop(this);
 
+        this.view.setOnTouchListener(this);
+
         this.setContentView(this.view);
     }
 
@@ -29,5 +33,11 @@ public class SpaceshipGame extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
         this.view.resume();
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        this.view.moveDown(10);
+        return true;
     }
 }
