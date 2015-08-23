@@ -18,9 +18,15 @@ public class GameLoop extends SurfaceView implements Runnable {
 
     private SurfaceHolder holder;
 
-    private int playerY = 300;
+    private int playerY = 300, playerX = 300, playerRadius = 50;
 
     private Paint paint;
+
+    private int enemyRadius = 50, enemyX = 0, enemyY = 0;
+
+    private double distance;
+
+    private boolean gameOver = false;
 
     public GameLoop(Context context) {
         super(context);
@@ -42,16 +48,34 @@ public class GameLoop extends SurfaceView implements Runnable {
             canvas.drawColor(Color.BLACK);
 
             this.drawPlayer(canvas);
+            this.drawEnemy(canvas);
+
+            if(this.checkCollision(canvas)) {
+                this.gameOver = true;
+                this.stopGame(canvas);
+            }
+
 
 
             this.holder.unlockCanvasAndPost(canvas);
+
+            if(this.gameOver) {
+                break;
+            }
         }
 
     }
 
+    private void stopGame(Canvas canvas) {
+        this.paint.setStyle(Paint.Style.FILL);
+        this.paint.setColor(Color.RED);
+        this.paint.setTextSize(100);
+        canvas.drawText("GAME OVER", 400, 400, this.paint);
+    }
+
     private void drawPlayer(Canvas canvas) {
         this.paint.setColor(Color.GREEN);
-        canvas.drawCircle(100,this.playerY,50,this.paint);
+        canvas.drawCircle(this.playerX,this.playerY,this.playerRadius,this.paint);
     }
 
     public void resume() {
@@ -62,5 +86,21 @@ public class GameLoop extends SurfaceView implements Runnable {
 
     public void moveDown(int pixels) {
         this.playerY += pixels;
+    }
+
+    private void drawEnemy(Canvas canvas) {
+        this.paint.setColor(Color.GRAY);
+        this.enemyRadius += 5;
+        canvas.drawCircle(this.enemyX,this.enemyY,this.enemyRadius, this.paint);
+    }
+
+    private boolean checkCollision(Canvas canvas) {
+        this.distance = Math.pow(this.playerY - this.enemyY, 2) + Math.pow(this.playerX - this.enemyX, 2);
+        this.distance = Math.sqrt(this.distance);
+
+        if(this.distance <= playerRadius + enemyRadius) {
+            return true;
+        }
+        return false;
     }
 }
