@@ -15,12 +15,19 @@ public class SpaceshipGame extends ActionBarActivity {
     private GameLoop view;
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         this.view = new GameLoop(this);
 
         this.setContentView(this.view);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.view.resume();
     }
 }
