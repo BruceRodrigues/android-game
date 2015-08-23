@@ -39,6 +39,20 @@ public class SpaceshipGame extends ActionBarActivity implements View.OnTouchList
     public boolean onTouch(View v, MotionEvent event) {
         this.view.moveDown(10);
         this.view.addScore(100);
+
+        System.out.println("X = " + event.getX() + " Y = " + event.getY());
+
+        if(event.getX() < 100 && event.getY() > 290 &&
+                event.getY() < 310) {
+            view.init();
+        }
+        // Exit
+        if(event.getX() < 100 && event.getY() > 490 &&
+                event.getY() < 510) {
+            System.exit(0);
+        }
+
+
         return true;
     }
 }

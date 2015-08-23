@@ -52,6 +52,7 @@ public class GameLoop extends SurfaceView implements Runnable {
             this.drawPlayer(canvas);
             this.drawEnemy(canvas);
             this.drawScore(canvas);
+            this.drawButtons(canvas);
 
             if(this.checkCollision(canvas)) {
                 this.gameOver = true;
@@ -69,8 +70,24 @@ public class GameLoop extends SurfaceView implements Runnable {
 
     }
 
+    public void init() {
+        enemyRadius = enemyX = enemyY = 0;
+        playerY = this.playerX = 300;
+        this.playerRadius = 50;
+        this.gameOver = false;
+    }
+
     public void addScore(int points) {
         this.score += points;
+    }
+
+    private void drawButtons(Canvas canvas) {
+        this.paint.setStyle(Paint.Style.FILL);
+        this.paint.setColor(Color.WHITE);
+        this.paint.setTextSize(30);
+        canvas.drawText("RESTART", 50, 300, this.paint);
+
+        canvas.drawText("EXIT", 50, 500, this.paint);
     }
 
     private void stopGame(Canvas canvas) {
