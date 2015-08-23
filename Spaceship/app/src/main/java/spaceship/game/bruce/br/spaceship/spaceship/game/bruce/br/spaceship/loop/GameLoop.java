@@ -1,11 +1,14 @@
 package spaceship.game.bruce.br.spaceship.spaceship.game.bruce.br.spaceship.loop;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import spaceship.game.bruce.br.spaceship.R;
 
 /**
  * Created by bruce on 23/08/15.
@@ -48,6 +51,8 @@ public class GameLoop extends SurfaceView implements Runnable {
 
             Canvas canvas = this.holder.lockCanvas();
             canvas.drawColor(Color.BLACK);
+
+            canvas.drawBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.sky), 0, 0, null);
 
             this.drawPlayer(canvas);
             this.drawEnemy(canvas);
@@ -99,7 +104,8 @@ public class GameLoop extends SurfaceView implements Runnable {
 
     private void drawPlayer(Canvas canvas) {
         this.paint.setColor(Color.GREEN);
-        canvas.drawCircle(this.playerX, this.playerY, this.playerRadius, this.paint);
+//        canvas.drawCircle(this.playerX, this.playerY, this.playerRadius, this.paint);
+        canvas.drawBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.nave), this.playerX-50, this.playerY-50, null);
     }
 
     public void resume() {
