@@ -38,6 +38,7 @@ public class SpaceshipGame extends ActionBarActivity implements View.OnTouchList
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         this.view.moveDown(10);
+        this.view.addScore(100);
         return true;
     }
 }
